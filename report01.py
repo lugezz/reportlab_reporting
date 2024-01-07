@@ -1,4 +1,5 @@
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
 from reportlab.pdfgen import canvas
 
 
@@ -11,6 +12,9 @@ c = canvas.Canvas(
     my_file_path,
     pagesize=A4
 )
+
+# Move the origin up and to the left
+c.translate(cm, cm)
 
 # Fill some color and font
 c.setFillColorRGB(0, 0, 255)
@@ -28,12 +32,6 @@ c.setLineWidth(10)
 c.setStrokeColorRGB(1, 0, 0)
 c.line(100, 600, 500, 600)
 
-# Draw the image, and rotate it
-c.rotate(15)
-c.drawImage(image_path, 200, 400)
-c.rotate(-15)
-
-
 # Draw a rectangle
 # Arguments are: x1, y1, x2, y2, fill (1) or not (0)
 # x1 and y1 are the bottom left corner
@@ -49,6 +47,12 @@ c.setFont("Helvetica", 80)
 text_x = 300  # Adjusted X-coordinate
 text_y = 00  # Adjusted Y-coordinate
 c.drawString(text_x, text_y, "Que tul!")
+c.rotate(-45)
+
+# Draw the image, and rotate it
+c.rotate(-15)
+c.drawImage(image_path, -0.8 * cm, 9 * cm, width=1.5 * cm, height=1.5 * cm)
+c.rotate(15)
 
 # Show and save
 c.showPage()
